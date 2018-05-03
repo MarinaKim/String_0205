@@ -37,6 +37,39 @@ void String:: operator()(const char *str) {
 	}
 }
 
+String& String:: operator=(const String& str) {
+	char *tmp;
+	this->length = str.length;
+	tmp = new char[this->length+1];
+	for (int i = 0;i < length;i++) {
+		tmp[i] = str.m_stringRep[i];
+	}
+	tmp[length] = '\0';
+	delete[] this->m_stringRep;
+	m_stringRep = tmp;
+	return *this;
+}
+
+String& String:: operator+(const String&str) {
+	char *tmp;
+
+	tmp = new char[length + str.length + 1];
+	for (int i = 0;i < this->length; i++)
+		tmp[i] = this->m_stringRep[i];
+	for (int i = this->length;i < length + str.length;i++)
+	{
+		for (int j = 0;j < str.length;j++)
+			tmp[i] = str.m_stringRep[j];
+	}
+	this->length += str.length;
+	tmp[length] = '\0';
+	this->m_stringRep = tmp;
+	return *this;
+}
+String& String:: operator+(const char *str) {
+	ConcatStr(str);
+	return *this;
+}
 
 String& String:: AddCharAt(size_t pos, char c) {
 	char *tmp;
@@ -69,16 +102,33 @@ String& String::DelCharAt(size_t pos) {
 String& String::ConcatStr(const String& str) {
 	char *tmp;
 	
-
-	tmp = new char[length+str.length];
+	tmp = new char[length+str.length+1];
 	for (int i = 0;i < this->length; i++)
 		tmp[i] = this->m_stringRep[i];
 	for (int i = this->length;i < length + str.length;i++)
 	{
 		for (int j = 0;j < str.length;j++)
-			tmp[i] = str.m_stringRep[j];
+			tmp[i] = str.m_stringRep[j];		
 	}
 	this->length += str.length;
+	tmp[length] = '\0';
 	this->m_stringRep = tmp;
+	return *this;
+}
+
+String& String:: ConcatStr(const char* str) {
+	char *tmp;
+	int tmp_length= this->length+strlen(str);
+	tmp = new char[tmp_length + 1];
+	for (int i = 0;i < this->length; i++)
+		tmp[i] = this->m_stringRep[i];
+	for (int i = 0;i < strlen(str);i++) {
+		tmp[i + length] = str[i];
+	}
+
+	tmp[tmp_length] = '\0';
+	delete[] this->m_stringRep;
+	this->m_stringRep = tmp;
+	this->length = tmp_length;
 	return *this;
 }

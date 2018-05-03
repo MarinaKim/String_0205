@@ -15,6 +15,10 @@ public:
 	String& AddCharAt(size_t pos, char c);
 	String& DelCharAt(size_t pos);
 	String& ConcatStr(const String& str);
+	String& ConcatStr(const char* str);
 	void operator()(const char *str);
+	String& operator=(const String&str);
+	String& operator+(const String&str);
+	String& operator+(const char *str);
 	~String() { delete[]m_stringRep; }
 };
