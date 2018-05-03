@@ -93,7 +93,7 @@ String String::Format(const char * specs, ...)
 			}break;
 			case 'f': {double dval = va_arg(arguments, double); 		//Если это символ f значит параметр double
 				//cout << dval << " ";}break; //Выводим параметр типа double на экран
-				sprintf(buf, "%f", dval);
+				sprintf_s(buf, "%f", dval);
 				s.ConcatStr(buf);
 			}break;
 			
