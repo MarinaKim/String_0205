@@ -16,9 +16,25 @@ public:
 	String& DelCharAt(size_t pos);
 	String& ConcatStr(const String& str);
 	String& ConcatStr(const char* str);
+	String& AddStrAt(const String& str, size_t pos);
+	String& AddStrAt(const char* str, size_t pos);
+	/*String& DelStrAt(size_t beg, size_t end);*/
+
 	void operator()(const char *str);
 	String& operator=(const String&str);
 	String& operator+(const String&str);
 	String& operator+(const char *str);
+
+	static String Format(const char* specs, ...);
 	~String() { delete[]m_stringRep; }
 };
+
+//// шаблонная функция (typename||class), может быть сколько угодно
+//template<typename T>
+//static String Format(const char* specs, T var);
+//template<typename T>
+//inline String String::Format(const char * specs, T var)
+//{
+//
+//	return String();
+//}

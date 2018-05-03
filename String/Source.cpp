@@ -34,8 +34,18 @@ int main() {
 	cout << s1.getStrRep() << endl;
 	cout << "---------------------------------------------------" << endl;
 
+	s1.AddStrAt(s3, 2);
+	cout << s1.getStrRep() << endl;
+	cout << "---------------------------------------------------" << endl;
 
-	
+	s1.AddStrAt("TYHFFD", 2);
+	cout << s1.getStrRep() << endl;
+	cout << "---------------------------------------------------" << endl;
+
+
+	cout << String::Format("%d is /*%f*/", 10/*, 12.5*/).getStrRep();
+	cout << "---------------------------------------------------" << endl;
+
 	system("pause");
 	return 0;
 }

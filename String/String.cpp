@@ -71,6 +71,47 @@ String& String:: operator+(const char *str) {
 	return *this;
 }
 
+//printf("%d is %f",10,6.5);
+String String::Format(const char * specs, ...)
+{
+	String s(300);
+	char buf[100];
+	int i = 0;
+	va_list arguments;
+	va_start(arguments, specs);
+	for (const char *p = specs;*p;p++) 					//
+	{
+		if (*p == '%') 									//Если встретится символ %
+		{
+			switch (*++p) 								//То анализируем следующий за этим симолом символ
+			{
+			case 'd': { int ival = va_arg(arguments, int); 			//Если это символ d, то значит параметр int
+				//cout << ival << " ";}break; 					//Выводим параметр типа int на экран
+				_itoa_s(ival, buf, 10);
+				s.ConcatStr(buf);
+
+			}break;
+			case 'f': {double dval = va_arg(arguments, double); 		//Если это символ f значит параметр double
+				//cout << dval << " ";}break; //Выводим параметр типа double на экран
+				sprintf(buf, "%f", dval);
+				s.ConcatStr(buf);
+			}break;
+			
+			}
+		}
+		else
+		{
+			/*cout << *p << " ";*/
+			s.m_stringRep[i++] = *p;
+		}
+	}
+	s.m_stringRep[i] = '\0';
+	va_end(arguments); 	//Завершаем работу с макрокомандами
+
+	return s;
+}
+
+
 String& String:: AddCharAt(size_t pos, char c) {
 	char *tmp;
 	this->length += 1;
@@ -132,3 +173,47 @@ String& String:: ConcatStr(const char* str) {
 	this->length = tmp_length;
 	return *this;
 }
+
+String& String:: AddStrAt(const String& str, size_t pos) {
+	char *tmp;
+	int tmp_length = this->length + str.length;
+	tmp = new char[tmp_length + 1];
+	tmp[tmp_length] = '\0';
+	for (int i = 0;i < pos;i++)
+		tmp[i] = this->m_stringRep[i];
+	for (int i = 0;i < str.length;i++)
+		tmp[i + pos] = str.m_stringRep[i];
+	for (int i = pos;i < this->length;i++)
+		tmp[i + str.length] = this->m_stringRep[i];
+
+	delete[] this->m_stringRep;
+	this->m_stringRep = tmp;
+	this->length = tmp_length;
+	return *this;
+}
+
+String& String::AddStrAt(const char* str, size_t pos) {
+	char *tmp;
+	int tmp_length = this->length + strlen(str);
+	tmp = new char[tmp_length + 1];
+	tmp[tmp_length] = '\0';
+	for (int i = 0;i < pos;i++)
+		tmp[i] = this->m_stringRep[i];
+	for (int i = 0;i < strlen(str);i++)
+		tmp[i + pos] = str[i];
+	for (int i = pos;i < this->length;i++)
+		tmp[i + strlen(str)] = this->m_stringRep[i];
+
+	delete[] this->m_stringRep;
+	this->m_stringRep = tmp;
+	this->length = tmp_length;
+	return *this;
+}
+//
+//String & String::DelStrAt(size_t beg, size_t end)
+//{
+//	char *tmp;
+//	int tmp_length=
+//	
+//
+//}
