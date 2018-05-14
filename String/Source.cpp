@@ -43,7 +43,33 @@ int main() {
 	cout << "---------------------------------------------------" << endl;
 
 
-	cout << String::Format("%d is /*%f*/", 10/*, 12.5*/).getStrRep();
+	//cout << String::Format("%d is /*%f*/", 10/*, 12.5*/).getStrRep();
+	//cout << "---------------------------------------------------" << endl;
+
+	s1.DelStrAt(2, 7);
+	cout << s1.getStrRep() << endl;
+	cout << "---------------------------------------------------" << endl;
+
+	char *s7=s1.getRange(2, 7);
+	cout << s7 << endl;
+	cout << "---------------------------------------------------" << endl;
+
+	String what("av");
+	int index=s1.SubStr(what);
+	cout << index<< endl;
+	cout << "---------------------------------------------------" << endl;
+
+	char *what1 = "av";
+	int index1 = s1.SubStr(what1);
+	cout << index1 << endl;
+	cout << "---------------------------------------------------" << endl;
+
+	String s8("eyrtav");
+	cout << "Before: "<<s8.getStrRep() << endl;
+	char *what2 = "av";
+	char *rep = "KT";
+	s8.Replace(what2, rep);
+	cout << "After: "<<s8.getStrRep() << endl;
 	cout << "---------------------------------------------------" << endl;
 
 	system("pause");
