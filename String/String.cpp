@@ -281,8 +281,7 @@ size_t String::SubStr(const char * what)
 
 String & String::Replace(const char * what, const char * rep)
 {
-	int k = 0, index, t = 0;
-	int l = 0;
+	int k = 0, index,l = 0;
 	if (strlen(what) == strlen(rep)) {
 		char *tmp;
 		tmp = new char[this->length];
@@ -312,6 +311,38 @@ String & String::Replace(const char * what, const char * rep)
 		this->m_stringRep[length] = '\0';
 		return *this;
 	}
+}
 
+String & String::Replace(const String & what, const String & rep)
+{
+	int k = 0, index, l = 0;
+	if (what.length == rep.length) {
+		char *tmp;
+		tmp = new char[this->length];
 
+		for (int i = 0; i < this->length; i++) {
+			if (this->m_stringRep[i] == what.m_stringRep[k]) {
+				k++;
+
+				if (k == what.length) {
+					index = i - what.length + 1;
+
+					for (int m = 0; m < index; m++)
+						tmp[m] = this->m_stringRep[m];
+					for (int m = index; m < index + what.length; m++) {
+						tmp[m] = rep.m_stringRep[l];
+						l++;
+					}
+					for (int m = index + what.length; m < this->length; m++)
+						tmp[m] = this->m_stringRep[m];
+					k = 0;
+				}
+			}
+		}
+
+		delete[] this->m_stringRep;
+		this->m_stringRep = tmp;
+		this->m_stringRep[length] = '\0';
+		return *this;
+	}
 }

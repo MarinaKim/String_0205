@@ -72,6 +72,15 @@ int main() {
 	cout << "After: "<<s8.getStrRep() << endl;
 	cout << "---------------------------------------------------" << endl;
 
+
+	String s9("eyrtavhg");
+	cout << "Before: " << s9.getStrRep() << endl;
+	String what3 ("yr");
+	String rep1("ST");
+	s9.Replace(what3, rep1);
+	cout << "After: " << s9.getStrRep() << endl;
+	cout << "---------------------------------------------------" << endl;
+
 	system("pause");
 	return 0;
 }
